@@ -46,6 +46,20 @@ def getTickers():
                 tickers.append(cols[0].text.strip())
     return tickers
 
+def getStockVol(ticker):
+    """Returns a stock's 30-day implied volatility from alphaqueries
+    Inputs:
+        ticker     - a string representing a stock's ticker
+    Outputs: 
+        volatility - implied volatility for the stock 
+    """
+    url = "https://www.alphaquery.com/stock/"+ ticker+ "/volatility-option-statistics/30-day/iv-mean"
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    table = soup.find("table")
+    rows = table.find_all('tr') 
+    volatility = float(rows[5].find_all('td')[1].text.strip()) # Specific table entry in AlphaQuery containing data
+    return volatility
 
 def getStockData(ticker):
     """Returns a stock's price, dividend yield, and implied volatility
