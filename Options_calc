@@ -44,5 +44,6 @@ class BlackScholes:
         #expiration according to Black-Scholes.
         _d2 = self.d2(S, K, T, sigma, r)
         return 1 - norm.cdf(_d2)
+#this commment is a test
 
 print (BlackScholes.d1(128.2, 80.0, 0.005738332446066875, 0.2932, 0.0088 )) #Test1
