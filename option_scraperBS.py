@@ -8,7 +8,7 @@ Option Parser for Black Scholes data for S&P500 companies
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--batches", type= int, default=5, help="number of batches to extract data from")
-parser.add_argument("--bs", type= int, default=10, help="number of companies whose data will be extracted in a batch")
+parser.add_argument("--bs", type= int, default=2, help="number of companies whose data will be extracted in a batch")
 parser.add_argument("--rf", type= float, default=0.0088, help="current risk free rate")
 parser.add_argument("--wait", type= float, default=5, help="time to wait between page requests")
 parser.add_argument("--waitb", type= float, default=100, help="time to wait between batches to avoid server denial")
@@ -161,7 +161,7 @@ def scrapeData(startIndex, bs, rf, wait, verbose = True):
         verbose    - boolean that determines if you want output to be printed
         wait       - wait period between page requests
     """
-    if startIndex < 0 or startIndex >499:
+    if startIndex < 0 or startIndex >2:
         raise Exception("Invalid start index!")
         
     cols  = ['Stock Price', 'Strike Price', 'Maturity', 'Dividends', 'Volatility', 'Risk-free', 'Call Price']
@@ -260,7 +260,7 @@ startIdx = args.startIdx
 waitB = args.waitb
 
 for i in range(num_batches):
-    if (startIdx + (i*bs)) < (499 - bs): # only scrape data if we won't exceed the ticker list
+    if (startIdx + (i*bs)) < (2 - bs): # only scrape data if we won't exceed the ticker list
         scrapeData( (startIdx+i*bs), bs, rf, wait_period, verbose)
         if verbose:
             print("Waiting for to avoid server denial")
